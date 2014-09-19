@@ -17,6 +17,8 @@ namespace ProducerConsumer
             this._queue = new Queue<int>();
         }
 
+
+        public int _wtf;
         public Boolean IsFull()
         {
             return true;
