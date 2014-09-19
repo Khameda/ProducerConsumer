@@ -18,12 +18,17 @@ namespace ProducerConsumer
         }
 
 
-        public int _wtf;
-        public Boolean IsFull()
+        
+        public bool IsFull()
         {
-            return true;
+            return false;
         }
 
+        public bool IsEmpty()
+        {
+            return true;
+
+        }
        
         public void Put(int element)
         {
@@ -32,8 +37,16 @@ namespace ProducerConsumer
 
         public int Take()
         {
-            int temp = this._queue.Dequeue();
-            return temp;
+
+            while (this._queue.Count == 0)
+            {
+                // wait wait wait vvw vvw vvw vvw while queue is empty
+            }
+
+
+             int temp = this._queue.Dequeue();
+             return temp;
+           
         }
     }
 }

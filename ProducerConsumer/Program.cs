@@ -16,6 +16,8 @@ namespace ProducerConsumer
             Consumer con = new Consumer(buf, 10);
 
             Parallel.Invoke(prod.Run, con.Run);
+            Console.ReadKey();
+
 
 
             ////Parallel.Invoke(
