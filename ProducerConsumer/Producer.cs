@@ -22,9 +22,11 @@ namespace ProducerConsumer
         {
             for (int i = 0; i < this._max; i++)
             {
-                this._buffer.Put(i);
-                Console.WriteLine("Producer added {0}", i);
-
+                lock (this._buffer)
+                {
+                    this._buffer.Put(i);
+                   // Console.WriteLine("Producer added {0}", i);
+                }
             }
         }
     }
