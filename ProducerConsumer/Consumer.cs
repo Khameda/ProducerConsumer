@@ -9,11 +9,13 @@ namespace ProducerConsumer
     {
         private int _max;
         private BoundedBuffer _buffer;
+       
         public Consumer(BoundedBuffer buffer, int expectedAmount)
         {
             this._max = expectedAmount;
             this._buffer = buffer;
-            
+           
+
         }
 
         public void Run()
@@ -25,6 +27,10 @@ namespace ProducerConsumer
            // Console.WriteLine("Consumer just took {0} from the buffer", temp);
                 //comment
             }
+          
         }
+
+        
+       
     }
 }
