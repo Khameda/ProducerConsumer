@@ -11,7 +11,8 @@ namespace ProducerConsumer
     {
         private Queue<int> _queue;
         private int _cap;
-
+        public int NumberOfFills = 0;
+        private bool _hasLastElement = false;
         public BoundedBuffer(int capacity)
         {
             this._cap = capacity;
@@ -25,6 +26,7 @@ namespace ProducerConsumer
 
             if (this._queue.Count >= this._cap)
             {
+                this.NumberOfFills ++;
                 return true;
             }
             return false;
@@ -54,17 +56,37 @@ namespace ProducerConsumer
 
         public int Take()
         {
-
+          
             lock (this._queue)
             {
+                if (this._hasLastElement)
+                {
+                    return -1;
+                }
+
                 while (this._queue.Count == 0)
                 {
+
                     // wait wait wait vvw vvw vvw vvw while queue is empty
                     Monitor.Wait(this._queue);
+
+                    if (this._hasLastElement)
+                    {
+                        return -1;
+                    }
                 }
 
 
                 int temp = this._queue.Dequeue();
+                //if (temp == -1)
+                //{
+                //    this._queue.Enqueue(temp);
+                //}
+                if (temp == -1)
+                {
+                    this._hasLastElement = true;
+                }
+
                 Console.WriteLine("Element {0} was just removed from the buffer", temp);
                 Monitor.PulseAll(this._queue);
                 return temp;
